@@ -38,10 +38,10 @@ def main():
 
     # Create enemy and projectile Groups - TODO
     enemies = pygame.sprite.Group()
-    for i in range(500, 1000, 75):
-        for j in range(100, 600, 50):
-            enemy = Enemy((i, j))
-            enemies.add(enemy)
+    # for i in range(500, 1000, 75):
+    #     for j in range(100, 600, 50):
+    #         enemy = Enemy((i, j))
+    #         enemies.add(enemy)
     projectiles = pygame.sprite.Group()
 
     for entity in enemies:
@@ -81,7 +81,11 @@ def main():
     score = 0
     # Setup movement variable
     move = 0
+    timer = 0
+    enemy = Enemy2((5000,5000))
     while running:
+        #increment timer
+        timer += 1
 
         # First thing we need to clear the events.
         for event in pg.event.get():
@@ -108,22 +112,35 @@ def main():
                 projectiles.add(projectile2)
                 shotDelta = 0
   
+        #add new mobile enemies
+        if timer % 100 == 0:
+            enemy = Enemy2((1024,random.randint(1, 720)))
+            enemies.add(enemy)
+        
         # enemy movement
-        enemyMove = move % 100
-        if enemyMove < 50:
+        # enemyMove = move % 100
+        # if enemyMove < 50:
+        #     for enemy in enemies:
+        #         enemy.down(delta)
+        # if enemyMove > 49:
+        #     for enemy in enemies:
+        #         enemy.up(delta)
+        # move = move + 1
+
+        #new enemy movement
+        if enemy:
             for enemy in enemies:
-                enemy.down(delta)
-        if enemyMove > 49:
-            for enemy in enemies:
-                enemy.up(delta)
-        move = move + 1
+                enemy.left(delta)
+
+
 
         # enemy firing        
-        for enemy in enemies:
-            if enemyShotDelta >= 1 and random.randint(1, 20) == 10:
-                projectile = Projectile2(enemy.rect, players)
-                projectiles.add(projectile)
-                enemyShotDelta = 0
+        if enemy:
+            for enemy in enemies:
+                if enemyShotDelta >= 1 and random.randint(1, 20) == 10:
+                    projectile = Projectile2(enemy.rect, players)
+                    projectiles.add(projectile)
+                    enemyShotDelta = 0
 
         # Ok, events are handled, let's update objects!
         player.update(delta)
@@ -150,8 +167,12 @@ def main():
         enemyShotDelta += delta
         
         #did you win?
-        if len(enemies) == 0:
-            print("Congratulations! You win.")
+        # if len(enemies) == 0:
+        #     print("Congratulations! You win.")
+        #     running = False
+
+        if timer > 2500 :
+            print("times up")
             running = False
 
 # Startup the main method to get things going.
