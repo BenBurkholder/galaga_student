@@ -82,7 +82,7 @@ def main():
     # Setup movement variable
     move = 0
     timer = 0
-    enemy = Enemy2((5000,5000))
+    enemy = Enemy2((5000,5000), players)
     while running:
         #increment timer
         timer += 1
@@ -114,7 +114,7 @@ def main():
   
         #add new mobile enemies
         if timer % 100 == 0:
-            enemy = Enemy2((1024,random.randint(1, 720)))
+            enemy = Enemy2((1024,random.randint(1, 720)), players)
             enemies.add(enemy)
         
         # enemy movement
