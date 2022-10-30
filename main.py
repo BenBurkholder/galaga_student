@@ -34,6 +34,7 @@ def main():
     player.draw(screen)
     players = pygame.sprite.Group()
     players.add(player)
+    selectedWeapon = 1
 
 
     # Create enemy and projectile Groups - TODO
@@ -96,21 +97,35 @@ def main():
 
         keys = pg.key.get_pressed()
 
-        if keys[K_s]:
+        if keys[K_s] | keys[K_DOWN]:
             player.down(delta)
-        if keys[K_w]:
+        if keys[K_w] | keys[K_UP]:
             player.up(delta)
-        if keys[K_a]:
+        if keys[K_a] | keys[K_LEFT]:
             player.left(delta)
-        if keys[K_d]:
+        if keys[K_d] | keys[K_RIGHT]:
             player.right(delta)
         if keys[K_SPACE]:
             if shotDelta >= .25:
-                projectile = Projectile3(player.rect, enemies)
-                projectiles.add(projectile) 
-                projectile2 = Projectile4(player.rect, enemies)
-                projectiles.add(projectile2)
+                if selectedWeapon == 1:
+                    projectile = Projectile(player.rect, enemies)
+                    projectiles.add(projectile)
+                if selectedWeapon == 2:
+                    projectile = Projectile3(player.rect, enemies)
+                    projectiles.add(projectile) 
+                    projectile2 = Projectile4(player.rect, enemies)
+                    projectiles.add(projectile2)
                 shotDelta = 0
+        if keys[K_TAB]:
+            pygame.key.set_repeat(8)
+            if selectedWeapon == 2:
+                selectedWeapon = 1
+            else:
+                selectedWeapon = selectedWeapon + 1
+        if keys[K_1]:
+            selectedWeapon = 1
+        if keys[K_2]:
+            selectedWeapon = 2
   
         #add new mobile enemies
         if timer % 100 == 0:
