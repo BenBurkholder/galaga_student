@@ -176,7 +176,6 @@ def main():
         screen.fill((0, 0, 0))
         background.draw(screen)
         player.draw(screen)
-        enemy.draw(screen)
         enemies.draw(screen)
         projectiles.draw(screen)
         font.render_to(screen, (10, 10), "Score: " + str(score), FONTCOLOR, None, size=64)
