@@ -9,6 +9,7 @@ from player import Player
 from projectile2 import Projectile2
 from projectile3 import Projectile3
 from projectile4 import Projectile4
+from projectile5 import Projectile5
 from background import Background
 from projectile import Projectile
 from pygame.locals import *
@@ -106,19 +107,24 @@ def main():
         if keys[K_d] | keys[K_RIGHT]:
             player.right(delta)
         if keys[K_SPACE]:
-            if shotDelta >= .25:
-                if selectedWeapon == 1:
-                    projectile = Projectile(player.rect, enemies)
-                    projectiles.add(projectile)
-                if selectedWeapon == 2:
-                    projectile = Projectile3(player.rect, enemies)
-                    projectiles.add(projectile) 
-                    projectile2 = Projectile4(player.rect, enemies)
-                    projectiles.add(projectile2)
+            if selectedWeapon !=3:
+                if shotDelta >= .25:
+                    if selectedWeapon == 1:
+                        projectile = Projectile(player.rect, enemies)
+                        projectiles.add(projectile)
+                    if selectedWeapon == 2:
+                        projectile = Projectile3(player.rect, enemies)
+                        projectiles.add(projectile) 
+                        projectile2 = Projectile4(player.rect, enemies)
+                        projectiles.add(projectile2)
+                    shotDelta = 0
+            elif shotDelta >=.05:
+                projectile = Projectile5(player.rect, enemies)
+                projectiles.add(projectile)
                 shotDelta = 0
         if keys[K_TAB]:
             pygame.key.set_repeat(8)
-            if selectedWeapon == 2:
+            if selectedWeapon == 3:
                 selectedWeapon = 1
             else:
                 selectedWeapon = selectedWeapon + 1
@@ -126,6 +132,8 @@ def main():
             selectedWeapon = 1
         if keys[K_2]:
             selectedWeapon = 2
+        if keys[K_3]:
+            selectedWeapon = 3
   
         #add new mobile enemies
         if timer % 100 == 0:
