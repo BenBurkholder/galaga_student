@@ -29,3 +29,8 @@ class Background(pg.sprite.Sprite):
 
     def down(self, delta):
         self.rect.move_ip(0, 1)
+
+    def youLose(self, delta):
+        self.image = pg.image.load(os.path.join('assets', 'youLose.png')).convert_alpha()
+        self.rect = self.image.get_rect()
+        # self.update(delta)

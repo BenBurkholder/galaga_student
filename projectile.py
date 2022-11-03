@@ -23,7 +23,7 @@ class Projectile(pg.sprite.Sprite):
             self.kill()
         collision = pg.sprite.spritecollideany(self, self.enemies)
         if collision:
-            collision.kill()
+            collision.damage()
             pg.event.post(pg.event.Event(self.event))
             self.explosionSound.play()
             self.kill()

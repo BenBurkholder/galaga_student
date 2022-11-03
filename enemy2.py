@@ -16,6 +16,7 @@ class Enemy2(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect = self.surf.get_rect(center=(position))
         self.enemies = enemies
+        self.health=2
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
@@ -42,3 +43,8 @@ class Enemy2(pg.sprite.Sprite):
 
     def right(self,delta):
         self.rect.move_ip(1,0)
+
+    def damage(self):
+        self.health -=1
+        if self.health == 0:
+            self.kill()

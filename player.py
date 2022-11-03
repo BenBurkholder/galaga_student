@@ -15,7 +15,8 @@ class Player(pg.sprite.Sprite):
         self.image = pg.image.load(os.path.join('assets', 'Ship6.png')).convert_alpha()
         self.rect = self.image.get_rect()
         self.rect = self.surf.get_rect(center=(100,300))
-
+        self.health = 2
+        self.endGame =  pg.QUIT
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
@@ -38,3 +39,8 @@ class Player(pg.sprite.Sprite):
     def right(self, delta):
         if self.rect.x < 1020:
             self.rect.move_ip(5, 0)
+    
+    def damage(self):
+        self.health -= 1
+        if self.health == 0:
+            pg.event.post(pg.event.Event(self.endGame))

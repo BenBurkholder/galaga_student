@@ -14,7 +14,7 @@ class Projectile5(pg.sprite.Sprite):
         self.fireSound = pg.mixer.Sound(os.path.join('assets', 'fire.wav'))
         self.fireSound.play()
         self.explosionSound = pg.mixer.Sound(os.path.join('assets', 'explosion.wav'))
-        self.spread=random.randint(-75, 75)
+        self.spread=random.randint(-75, 75)        
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)

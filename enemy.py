@@ -15,6 +15,7 @@ class Enemy(pg.sprite.Sprite):
         self.image = pg.image.load(os.path.join('assets', 'Ship2.png')).convert_alpha()
         self.rect = self.image.get_rect()
         self.rect = self.surf.get_rect(center=(position))
+        self.health=1
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)

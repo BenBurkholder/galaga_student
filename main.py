@@ -4,6 +4,7 @@ import pygame as pg
 import pygame.freetype
 import os
 import random
+import time
 from enemy import Enemy
 from player import Player
 from projectile2 import Projectile2
@@ -26,6 +27,8 @@ def main():
     background = Background()
     #screen.blit(background.surf, background.rect)
     background.draw(screen)
+
+    dead = False
     
     #player.add(player)    
 
@@ -90,11 +93,19 @@ def main():
         timer += 1
 
         # First thing we need to clear the events.
+        if dead:
+            time.sleep(5)
+            running = False
+        
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                running = False
+                background.youLose(delta)
+                background.draw(screen)
+                dead = True
             if event.type == pg.USEREVENT + 1:
                 score += 100
+
+        
 
         keys = pg.key.get_pressed()
 
