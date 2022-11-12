@@ -15,127 +15,9 @@ from background import Background
 from projectile import Projectile
 from pygame.locals import *
 from enemy2 import Enemy2
+from levelOne import LevelOne
 
-class GameState():
-    def __init__(self):
-        self.state = 'main_game'
-        self.timer = 0
-        self.delta = 0
-        self.dead = False
-        self.shotDelta = 250
-        self.enemyShotDelta = 250
-        self.score = 0
-        self.selectedWeapon = 1
-        self.enemy = Enemy2((5000,5000), players)
 
-    def main_game(self):
-        #  increment timer
-        self.timer += 1
-
-        # First thing we need to clear the events.
-        if self.dead:
-            time.sleep(5)
-            return False
-        
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                background.youLose(self.delta)
-                background.draw(screen)
-                self.dead = True
-            if event.type == pg.USEREVENT + 1:
-                self.score += 100
-
-        
-
-        keys = pg.key.get_pressed()
-
-        if keys[K_s] | keys[K_DOWN]:
-            player.down(self.delta)
-        if keys[K_w] | keys[K_UP]:
-            player.up(self.delta)
-        if keys[K_a] | keys[K_LEFT]:
-            player.left(self.delta)
-        if keys[K_d] | keys[K_RIGHT]:
-            player.right(self.delta)
-        if keys[K_SPACE]:
-            if self.selectedWeapon !=3:
-                if self.shotDelta >= .10:
-                    if self.selectedWeapon == 1:
-                        projectile = Projectile(player.rect, enemies)
-                        projectiles.add(projectile)
-                    if self.selectedWeapon == 2:
-                        projectile = Projectile3(player.rect, enemies)
-                        projectiles.add(projectile) 
-                        projectile2 = Projectile4(player.rect, enemies)
-                        projectiles.add(projectile2)
-                    self.shotDelta = 0
-            elif self.shotDelta >=.01:
-                projectile = Projectile5(player.rect, enemies)
-                projectiles.add(projectile)
-                self.shotDelta = 0
-        if keys[K_TAB]:
-            pygame.key.set_repeat(8)
-            if self.selectedWeapon == 3:
-                self.selectedWeapon = 1
-            else:
-                self.selectedWeapon = self.selectedWeapon + 1
-        if keys[K_1]:
-            self.selectedWeapon = 1
-        if keys[K_2]:
-            self.selectedWeapon = 2
-        if keys[K_3]:
-            self.selectedWeapon = 3
-  
-        #add new mobile enemies
-        if self.timer % 100 == 0:
-            self.enemy = Enemy2((1024,random.randint(1, 720)), players)
-            enemies.add(self.enemy)
-
-        #new enemy movement
-        if self.enemy:
-            for enemy in enemies:
-                enemy.left(self.delta)
-
-        # enemy firing        
-        if self.enemy:
-            for enemy in enemies:
-                if self.enemyShotDelta >= 1 and random.randint(1, 20) == 10:
-                    projectile = Projectile2(enemy.rect, players)
-                    projectiles.add(projectile)
-                    self.enemyShotDelta = 0
-
-        # Ok, events are handled, let's update objects!
-        player.update(self.delta)
-        for enemy in enemies:
-            enemy.update(self.delta)
-        for projectile in projectiles:
-            projectile.update(self.delta)
-
-        # Objects are updated, now let's draw!
-        screen.fill((0, 0, 0))
-        background.draw(screen)
-        player.draw(screen)
-        enemies.draw(screen)
-        projectiles.draw(screen)
-        font.render_to(screen, (10, 10), "Score: " + str(score), FONTCOLOR, None, size=64)
-
-        # When drawing is done, flip the buffer.
-        pg.display.flip()
-
-        # How much time has passed this loop?
-        self.delta = clock.tick(fps) / 1000.0
-        self.shotDelta += self.delta
-        self.enemyShotDelta += self.delta
-        
-        #did you win?
-        # if len(enemies) == 0:
-        #     print("Congratulations! You win.")
-        #     running = False
-
-        if self.timer > 2500 :
-            print("times up")
-            return False
-        return True
 
 
 # def main():
@@ -193,12 +75,12 @@ FONTCOLOR = (200, 20, 20)
 # Startup the main game loop
 running = True
 # Frame limiting
-fps = 180
+fps = 60
 clock = pg.time.Clock()
 # Setup score variable
 score = 0
 
-mygame = GameState()
+mygame = LevelOne(player, screen, background, font, FONTCOLOR, fps)
 keepGoing = True
 while keepGoing:
     keepGoing = mygame.main_game()
