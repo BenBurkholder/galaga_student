@@ -35,13 +35,13 @@ class GameState():
         # First thing we need to clear the events.
         if self.dead:
             time.sleep(5)
-            running = False
+            return False
         
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 background.youLose(self.delta)
                 background.draw(screen)
-                dead = True
+                self.dead = True
             if event.type == pg.USEREVENT + 1:
                 self.score += 100
 
@@ -90,23 +90,11 @@ class GameState():
         if self.timer % 100 == 0:
             self.enemy = Enemy2((1024,random.randint(1, 720)), players)
             enemies.add(self.enemy)
-        
-        # enemy movement
-        # enemyMove = move % 100
-        # if enemyMove < 50:
-        #     for enemy in enemies:
-        #         enemy.down(delta)
-        # if enemyMove > 49:
-        #     for enemy in enemies:
-        #         enemy.up(delta)
-        # move = move + 1
 
         #new enemy movement
         if self.enemy:
             for enemy in enemies:
                 enemy.left(self.delta)
-
-
 
         # enemy firing        
         if self.enemy:
@@ -144,9 +132,10 @@ class GameState():
         #     print("Congratulations! You win.")
         #     running = False
 
-        if timer > 2500 :
+        if self.timer > 2500 :
             print("times up")
-            running = False
+            return False
+        return True
 
 
 # def main():
@@ -163,7 +152,6 @@ background = Background()
 #screen.blit(background.surf, background.rect)
 background.draw(screen)
 
-dead = False
 
 #player.add(player)    
 
@@ -173,8 +161,6 @@ player = Player()
 player.draw(screen)
 players = pygame.sprite.Group()
 players.add(player)
-selectedWeapon = 1
-
 
 # Create enemy and projectile Groups - TODO
 enemies = pygame.sprite.Group()
@@ -197,7 +183,6 @@ for entity in enemies:
 pygame.mixer.music.load(os.path.join('assets', 'openSpace.wav'))
 pygame.mixer.music.play(loops=-1)
 
-
 # Get font setup
 pg.freetype.init()
 font_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "./assets", "PermanentMarker-Regular.ttf")
@@ -207,33 +192,16 @@ font = pg.freetype.Font(font_path, font_size)
 FONTCOLOR = (200, 20, 20)
 # Startup the main game loop
 running = True
-# Keep track of time
-delta = 0
-# Make sure we can't fire more than once every 250ms
-shotDelta = 250
-# Make sure enemies can't fire more than once every 1000ms
-enemyShotDelta = 250
 # Frame limiting
-fps = 60
+fps = 180
 clock = pg.time.Clock()
 # Setup score variable
 score = 0
-# Setup movement variable
-move = 0
-timer = 0
-enemy = Enemy2((5000,5000), players)
-
-# game_state = GameState()
-
-
-# # Startup the main method to get things going.
-# if __name__ == "__main__":
-#     main()
-#     pg.quit()
 
 mygame = GameState()
-while True:
-    mygame.main_game()
+keepGoing = True
+while keepGoing:
+    keepGoing = mygame.main_game()
     clock.tick(fps)
 
 

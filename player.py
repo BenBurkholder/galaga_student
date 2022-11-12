@@ -26,19 +26,19 @@ class Player(pg.sprite.Sprite):
 
     def up(self, delta):
         if self.rect.y > 0:
-            self.rect.move_ip(0, -10)
+            self.rect.move_ip(0, -5)
 
     def down(self, delta):
         if self.rect.y < 700:
-            self.rect.move_ip(0, 10)
+            self.rect.move_ip(0, 5)
     
     def left(self, delta):
         if self.rect.x > 5:
-            self.rect.move_ip(-10, 0)
+            self.rect.move_ip(-5, 0)
     
     def right(self, delta):
         if self.rect.x < 1020:
-            self.rect.move_ip(10, 0)
+            self.rect.move_ip(5, 0)
     
     def damage(self):
         self.health -= 1
