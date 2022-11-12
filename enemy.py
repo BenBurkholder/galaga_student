@@ -24,7 +24,7 @@ class Enemy(pg.sprite.Sprite):
         self.rect.move_ip(0,0)
 
     def up(self, delta):
-        self.rect.move_ip(0, -1)
+        self.rect.move_ip(0, -3)
 
     def down(self, delta):
-        self.rect.move_ip(0, 1)
+        self.rect.move_ip(0, 3)

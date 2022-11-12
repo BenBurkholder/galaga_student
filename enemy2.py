@@ -33,16 +33,16 @@ class Enemy2(pg.sprite.Sprite):
             self.kill()
 
     def up(self, delta):
-        self.rect.move_ip(0, -1)
+        self.rect.move_ip(0, -3)
 
     def down(self, delta):
-        self.rect.move_ip(0, 1)
+        self.rect.move_ip(0, 3)
 
     def left(self,delta):
-        self.rect.move_ip(-1,0)
+        self.rect.move_ip(-3,0)
 
     def right(self,delta):
-        self.rect.move_ip(1,0)
+        self.rect.move_ip(3,0)
 
     def damage(self):
         self.health -=1
