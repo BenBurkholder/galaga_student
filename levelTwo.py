@@ -14,9 +14,9 @@ from projectile5 import Projectile5
 from background import Background
 from projectile import Projectile
 from pygame.locals import *
-from enemy2 import Enemy2
+from enemy3 import Enemy3
 
-class LevelOne():
+class LevelTwo():
     def __init__(self, player, screen, background, font, fontcolor, fps):
         self.state = 'main_game'
         self.timer = 0
@@ -26,7 +26,7 @@ class LevelOne():
         self.enemyShotDelta = 250
         self.score = 0
         self.selectedWeapon = 1
-        self.enemy = Enemy2((5000,5000), player)
+        self.enemy = Enemy3((5000,5000), player)
         self.enemies = pygame.sprite.Group()
         self.projectiles = pygame.sprite.Group()
         self.screen = screen
@@ -99,8 +99,8 @@ class LevelOne():
             self.selectedWeapon = 3
   
         #add new mobile enemies
-        if self.timer % 100 == 0:
-            self.enemy = Enemy2((1024,random.randint(1, 720)), self.players)
+        if self.timer % 50 == 0:
+            self.enemy = Enemy3((1024,random.randint(1, 720)), self.players)
             self.enemies.add(self.enemy)
 
         #new enemy movement

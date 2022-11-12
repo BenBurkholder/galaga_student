@@ -16,6 +16,7 @@ from projectile import Projectile
 from pygame.locals import *
 from enemy2 import Enemy2
 from levelOne import LevelOne
+from levelTwo import LevelTwo
 
 
 
@@ -81,9 +82,13 @@ clock = pg.time.Clock()
 score = 0
 
 mygame = LevelOne(player, screen, background, font, FONTCOLOR, fps)
-keepGoing = True
-while keepGoing:
+
+keepGoing = "yes"
+while (keepGoing == "yes"):
     keepGoing = mygame.main_game()
+    if (keepGoing == "next"):
+        mygame = LevelTwo(player, screen, background, font, FONTCOLOR, fps)
+        keepGoing = "yes"
     clock.tick(fps)
 
 
