@@ -17,6 +17,7 @@ class Enemy2(pg.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(position))
         self.enemies = enemies
         self.health=2
+        self.explosionSound = pg.mixer.Sound(os.path.join('assets', 'explosion.wav'))
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
@@ -27,8 +28,8 @@ class Enemy2(pg.sprite.Sprite):
             self.kill()
         collision = pg.sprite.spritecollideany(self, self.enemies)
         if collision:
-            collision.kill()
-            pg.event.post(pg.event.Event(self.event))
+            collision.damage()
+            # pg.event.post(pg.event.Event(self.event))
             self.explosionSound.play()
             self.kill()
 
