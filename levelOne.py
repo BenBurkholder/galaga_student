@@ -144,7 +144,7 @@ class LevelOne():
         #     print("Congratulations! You win.")
         #     running = False
 
-        if self.timer > 250 :
+        if self.timer > 1000 :
             print("times up")
             return "next"
         return "yes"

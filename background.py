@@ -11,10 +11,12 @@ import pygame as pg
 class Background(pg.sprite.Sprite):
     def __init__(self):
         super(Background, self).__init__()
-        self.surf = pg.Surface((1024, 768))
+        self.size=(1024,768)
+        self.surf = pg.Surface(self.size)
         # image from https://www.10wallpaper.com/view/2019_Fractal_Nebula_Glow_Space_HD_Universe.html
         # no artist credited 
-        self.image = pg.image.load(os.path.join('assets', 'space.png')).convert_alpha()
+        self.image = pg.image.load(os.path.join('assets', 'Background.png')).convert_alpha()
+        self.image = pg.transform.scale(self.image, self.size)
         self.rect = self.image.get_rect()
         #self.rect = self.surf.get_rect(center=(0,0))
 

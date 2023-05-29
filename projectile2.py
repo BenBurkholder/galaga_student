@@ -4,7 +4,10 @@ import pygame as pg
 class Projectile2(pg.sprite.Sprite):
     def __init__(self, shipLocation, enemies):
         super(Projectile2, self).__init__()
-        self.image = pg.image.load(os.path.join('assets', 'shot2.png')).convert_alpha()
+        self.size=(15,15)
+        self.surf = pg.Surface(self.size)
+        self.image = pg.image.load(os.path.join('assets', 'SBall.png')).convert_alpha()
+        self.image = pg.transform.scale(self.image, self.size)
         self.rect = self.image.get_rect()
         self.rect.centerx = shipLocation.x
         self.rect.centery = shipLocation.y + 12
