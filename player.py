@@ -11,9 +11,12 @@ import pygame as pg
 class Player(pg.sprite.Sprite):
     def __init__(self):
         super(Player, self).__init__()
-        self.surf = pg.Surface((75,40))
-        self.image = pg.image.load(os.path.join('assets', 'Ship6.png')).convert_alpha()
-        self.rect = self.image.get_rect()
+        self.size=(75,40)
+        self.surf = pg.Surface(self.size)
+        self.image = pg.image.load(os.path.join('assets', 'NewShip3.png')).convert_alpha()
+        # self.defaultImageSize=(75,400)
+        self.image = pg.transform.scale(self.image, self.size)
+        self.rect = self.surf.get_rect()
         self.rect = self.surf.get_rect(center=(100,300))
         self.health = 2
         self.endGame =  pg.QUIT

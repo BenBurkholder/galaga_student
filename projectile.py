@@ -7,7 +7,7 @@ class Projectile(pg.sprite.Sprite):
         self.image = pg.image.load(os.path.join('assets', 'shot.png')).convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.centerx = shipLocation.x + 100
-        self.rect.centery = shipLocation.y + 37
+        self.rect.centery = shipLocation.y + 20
         self.enemies = enemies
         self.event = pg.USEREVENT + 1
         self.fireSound = pg.mixer.Sound(os.path.join('assets', 'fire.wav'))
