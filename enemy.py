@@ -11,8 +11,10 @@ import pygame as pg
 class Enemy(pg.sprite.Sprite):
     def __init__(self, position):
         super(Enemy, self).__init__()
-        self.surf = pg.Surface((75,25))
-        self.image = pg.image.load(os.path.join('assets', 'Ship2.png')).convert_alpha()
+        self.size=(75,40)
+        self.surf = pg.Surface(self.size)
+        self.image = pg.image.load(os.path.join('assets', 'Dragon.png')).convert_alpha()
+        self.image = pg.transform.scale(self.image, self.size)
         self.rect = self.image.get_rect()
         self.rect = self.surf.get_rect(center=(position))
         self.health=1
