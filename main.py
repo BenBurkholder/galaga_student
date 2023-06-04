@@ -17,6 +17,8 @@ from pygame.locals import *
 from enemy2 import Enemy2
 from levelOne import LevelOne
 from levelTwo import LevelTwo
+from mainMenu import MainMenu
+from upgradeMenu import UpgradeMenu
 
 
 
@@ -35,7 +37,9 @@ background = Background()
 #screen.blit(background.surf, background.rect)
 background.draw(screen)
 
-
+#add list of levels
+levelList=[MainMenu, LevelOne, UpgradeMenu, LevelTwo]
+levelListInt=0
 #player.add(player)    
 
 # Create a player - TODO
@@ -68,9 +72,9 @@ pygame.mixer.music.play(loops=-1)
 
 # Get font setup
 pg.freetype.init()
-font_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "./assets", "PermanentMarker-Regular.ttf")
+# font_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "./assets", "PermanentMarker-Regular.ttf")
 font_size = 64
-font = pg.freetype.Font(font_path, font_size)
+font = pg.freetype.Font(None)
 # Make a tuple for FONTCOLOR - TODO
 FONTCOLOR = (200, 20, 20)
 # Startup the main game loop
@@ -81,13 +85,18 @@ clock = pg.time.Clock()
 # Setup score variable
 score = 0
 
-mygame = LevelOne(player, screen, background, font, FONTCOLOR, fps)
+mygame = levelList[levelListInt](player, screen, font, FONTCOLOR, fps)
 
 keepGoing = "yes"
 while (keepGoing == "yes"):
     keepGoing = mygame.main_game()
     if (keepGoing == "next"):
-        mygame = LevelTwo(player, screen, background, font, FONTCOLOR, fps)
+        levelListInt=levelListInt+1
+        mygame = levelList[levelListInt](player, screen, font, FONTCOLOR, fps)
+        keepGoing = "yes"
+    if (keepGoing == "no"):
+        levelListInt=0
+        mygame = levelList[levelListInt](player, screen, font, FONTCOLOR, fps)
         keepGoing = "yes"
     clock.tick(fps)
 

@@ -17,7 +17,7 @@ from pygame.locals import *
 from enemy2 import Enemy2
 
 class LevelOne():
-    def __init__(self, player, screen, background, font, fontcolor, fps):
+    def __init__(self, player, screen, font, fontcolor, fps):
         self.state = 'main_game'
         self.timer = 0
         self.delta = 0
@@ -30,7 +30,7 @@ class LevelOne():
         self.enemies = pygame.sprite.Group()
         self.projectiles = pygame.sprite.Group()
         self.screen = screen
-        self.background = background
+        self.background = Background()
         self.font = font
         self.FONTCOLOR = fontcolor
         self.delta = 0
