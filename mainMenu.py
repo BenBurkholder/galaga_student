@@ -15,6 +15,7 @@ from menuBackground import Background
 from projectile import Projectile
 from pygame.locals import *
 from enemy2 import Enemy2
+from optionNewGame import OptionNewGame
 
 class MainMenu():
     def __init__(self, player, screen, font, fontcolor, fps):
@@ -97,7 +98,12 @@ class MainMenu():
             self.selectedWeapon = 2
         if keys[K_3]:
             self.selectedWeapon = 3
-  
+
+        # add menu items 
+
+        if self.timer == 1:
+            self.enemy = OptionNewGame((150, 450), self.players)
+            self.enemies.add(self.enemy)
         # #add new mobile enemies
         # if self.timer % 100 == 0:
         #     self.enemy = Enemy2((1024,random.randint(1, 720)), self.players)
@@ -139,12 +145,12 @@ class MainMenu():
         self.shotDelta += self.delta
         self.enemyShotDelta += self.delta
         
-        #did you win?
-        # if len(enemies) == 0:
-        #     print("Congratulations! You win.")
-        #     running = False
+        # #did you win?
+        # if len(self.enemies) == 1:
+        #     print(self.enemies[0])
+        # #     running = False
 
-        if self.timer > 200 :
+        if self.timer > 500 :
             print("times up")
             return "next"
         return "yes"
