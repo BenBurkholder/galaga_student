@@ -17,7 +17,7 @@ class Player(pg.sprite.Sprite):
         # self.defaultImageSize=(75,400)
         self.image = pg.transform.scale(self.image, self.size)
         self.rect = self.surf.get_rect()
-        self.rect = self.surf.get_rect(center=(100,300))
+        self.rect = self.surf.get_rect(topleft=(60,425))
         self.health = 2
         self.endGame =  pg.QUIT
     def draw(self, screen):
@@ -45,5 +45,40 @@ class Player(pg.sprite.Sprite):
     
     def damage(self):
         self.health -= 1
-        if self.health == 0:
-            pg.event.post(pg.event.Event(self.endGame))
+        # if self.health == 0:
+        #     pg.event.post(pg.event.Event(self.endGame))
+
+    def isDead(self):
+        if self.health < 1:
+            self.rect.y=425
+            self.rect.x=60
+            self.health = 2
+            return True
+        else:
+            return False
+
+#Movement for Menus
+    def menuMoveUp(self, delta):
+        if self.rect.y==425:
+            self.rect.y=525
+        elif self.rect.y==475:
+            self.rect.y=425
+        elif self.rect.y==525:
+            self.rect.y=475
+
+    def menuMoveDown(self, delta):
+        if self.rect.y==525:
+            self.rect.y=425
+        elif self.rect.y==475:
+            self.rect.y=525
+        elif self.rect.y==425:
+            self.rect.y=475
+
+    def menuSelect(self):
+        if self.rect.y==425:
+            return "levelOne"
+        elif self.rect.y==475:
+            return "levelTwo"
+        elif self.rect.y==525:
+            return "exitProgram"
+            

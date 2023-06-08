@@ -147,4 +147,7 @@ class LevelOne():
         if self.timer > 1000 :
             print("times up")
             return "next"
+        
+        if self.player.isDead() == True:
+            return "reset"
         return "yes"

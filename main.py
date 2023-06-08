@@ -95,6 +95,11 @@ while (keepGoing == "yes"):
         mygame = levelList[levelListInt](player, screen, font, FONTCOLOR, fps)
         keepGoing = "yes"
     if (keepGoing == "no"):
+        # levelListInt=0
+        # mygame = levelList[levelListInt](player, screen, font, FONTCOLOR, fps)
+        # keepGoing = "yes"
+        pg.QUIT
+    if (keepGoing == "reset"):
         levelListInt=0
         mygame = levelList[levelListInt](player, screen, font, FONTCOLOR, fps)
         keepGoing = "yes"

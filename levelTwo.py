@@ -147,4 +147,7 @@ class LevelTwo():
         if self.timer > 2500 :
             print("times up")
             return "next"
+        
+        if self.player.isDead() == True:
+            return "reset"
         return "yes"

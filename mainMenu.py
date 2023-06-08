@@ -49,7 +49,7 @@ class MainMenu():
         if self.dead:
             time.sleep(5)
             return "no"
-        
+        pg.key.set_repeat(200,200)
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.background.youLose(self.delta)
@@ -57,53 +57,61 @@ class MainMenu():
                 self.dead = True
             if event.type == pg.USEREVENT + 1:
                 self.score += 100
-
+            if event.type == pg.KEYDOWN:
+                if (event.key == pg.K_UP) | (event.key == pg.K_w):
+                    self.player.menuMoveUp(self.delta)
+                elif (event.key == pg.K_DOWN) | (event.key == pg.K_s):
+                    self.player.menuMoveDown(self.delta)
+                if (event.key == pg.K_SPACE) | (event.key == pg.K_RETURN):
+                    if self.player.menuSelect() == "levelOne":
+                        return "next"
+                    elif self.player.menuSelect() == "exitProgram":
+                        return "no"
         
+        # keys = pg.key.get_pressed()
 
-        keys = pg.key.get_pressed()
-
-        if keys[K_s] | keys[K_DOWN]:
-            self.player.down(self.delta)
-        if keys[K_w] | keys[K_UP]:
-            self.player.up(self.delta)
-        if keys[K_a] | keys[K_LEFT]:
-            self.player.left(self.delta)
-        if keys[K_d] | keys[K_RIGHT]:
-            self.player.right(self.delta)
-        if keys[K_SPACE]:
-            if self.selectedWeapon !=3:
-                if self.shotDelta >= .3:
-                    if self.selectedWeapon == 1:
-                        projectile = Projectile(self.player.rect, self.enemies)
-                        self.projectiles.add(projectile)
-                    if self.selectedWeapon == 2:
-                        projectile = Projectile3(self.player.rect, self.enemies)
-                        self.projectiles.add(projectile) 
-                        projectile2 = Projectile4(self.player.rect, self.enemies)
-                        self.projectiles.add(projectile2)
-                    self.shotDelta = 0
-            elif self.shotDelta >=.05:
-                projectile = Projectile5(self.player.rect, self.enemies)
-                self.projectiles.add(projectile)
-                self.shotDelta = 0
-        if keys[K_TAB]:
-            pygame.key.set_repeat(8)
-            if self.selectedWeapon == 3:
-                self.selectedWeapon = 1
-            else:
-                self.selectedWeapon = self.selectedWeapon + 1
-        if keys[K_1]:
-            self.selectedWeapon = 1
-        if keys[K_2]:
-            self.selectedWeapon = 2
-        if keys[K_3]:
-            self.selectedWeapon = 3
+        # if keys[K_s] | keys[K_DOWN]:
+        #     self.player.menuMoveDown(self.delta)
+        # if keys[K_w] | keys[K_UP]:
+        #     self.player.menuMoveUp(self.delta)
+        # if keys[K_a] | keys[K_LEFT]:
+        #     self.player.left(self.delta)
+        # if keys[K_d] | keys[K_RIGHT]:
+        #     self.player.right(self.delta)
+        # if keys[K_SPACE]:
+        #     if self.selectedWeapon !=3:
+        #         if self.shotDelta >= .3:
+        #             if self.selectedWeapon == 1:
+        #                 projectile = Projectile(self.player.rect, self.enemies)
+        #                 self.projectiles.add(projectile)
+        #             if self.selectedWeapon == 2:
+        #                 projectile = Projectile3(self.player.rect, self.enemies)
+        #                 self.projectiles.add(projectile) 
+        #                 projectile2 = Projectile4(self.player.rect, self.enemies)
+        #                 self.projectiles.add(projectile2)
+        #             self.shotDelta = 0
+        #     elif self.shotDelta >=.05:
+        #         projectile = Projectile5(self.player.rect, self.enemies)
+        #         self.projectiles.add(projectile)
+        #         self.shotDelta = 0
+        # if keys[K_TAB]:
+        #     pygame.key.set_repeat(8)
+        #     if self.selectedWeapon == 3:
+        #         self.selectedWeapon = 1
+        #     else:
+        #         self.selectedWeapon = self.selectedWeapon + 1
+        # if keys[K_1]:
+        #     self.selectedWeapon = 1
+        # if keys[K_2]:
+        #     self.selectedWeapon = 2
+        # if keys[K_3]:
+        #     self.selectedWeapon = 3
 
         # add menu items 
 
-        if self.timer == 1:
-            self.enemy = OptionNewGame((150, 450), self.players)
-            self.enemies.add(self.enemy)
+        # if self.timer == 1:
+        #     self.enemy = OptionNewGame((150, 450), self.players)
+        #     self.enemies.add(self.enemy)
         # #add new mobile enemies
         # if self.timer % 100 == 0:
         #     self.enemy = Enemy2((1024,random.randint(1, 720)), self.players)
@@ -150,7 +158,9 @@ class MainMenu():
         #     print(self.enemies[0])
         # #     running = False
 
-        if self.timer > 500 :
-            print("times up")
-            return "next"
+        # if self.timer > 500 :
+        #     print("times up")
+        #     return "next"
+        if self.player.isDead() == True:
+            return "reset"
         return "yes"
