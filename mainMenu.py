@@ -27,7 +27,7 @@ class MainMenu():
         self.enemyShotDelta = 250
         self.score = 0
         self.selectedWeapon = 1
-        self.enemy = Enemy2((5000,5000), player)
+        self.enemy = Enemy2((5000,5000), player, 'left')
         self.enemies = pygame.sprite.Group()
         self.projectiles = pygame.sprite.Group()
         self.screen = screen

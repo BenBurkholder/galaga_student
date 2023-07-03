@@ -8,12 +8,12 @@ import pygame as pg
 # Set self.rect = self.image.get_rect().  Then make changes to the 
 # rectangle x, y or centerx and centery to move the object.
 
-class Enemy2(pg.sprite.Sprite):
+class Enemy4(pg.sprite.Sprite):
     def __init__(self, position, enemies, moveSet):
-        super(Enemy2, self).__init__()
+        super(Enemy4, self).__init__()
         self.size=(150,50)
         self.surf = pg.Surface(self.size)
-        self.image = pg.image.load(os.path.join('assets', 'Dragon.png')).convert_alpha()
+        self.image = pg.image.load(os.path.join('assets', 'Squid.png')).convert_alpha()
         self.image = pg.transform.scale(self.image, self.size)
         self.rect = self.image.get_rect()
         self.rect = self.surf.get_rect(center=(position))

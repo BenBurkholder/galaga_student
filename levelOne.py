@@ -15,6 +15,7 @@ from background import Background
 from projectile import Projectile
 from pygame.locals import *
 from enemy2 import Enemy2
+from enemy4 import Enemy4
 
 class LevelOne():
     def __init__(self, player, screen, font, fontcolor, fps):
@@ -26,7 +27,7 @@ class LevelOne():
         self.enemyShotDelta = 250
         self.score = 0
         self.selectedWeapon = 1
-        self.enemy = Enemy2((5000,5000), player)
+        self.enemy = Enemy2((5000,5000), player, 'left')
         self.enemies = pygame.sprite.Group()
         self.projectiles = pygame.sprite.Group()
         self.screen = screen
@@ -100,13 +101,15 @@ class LevelOne():
   
         #add new mobile enemies
         if self.timer % 100 == 0:
-            self.enemy = Enemy2((1024,random.randint(1, 720)), self.players)
+            self.enemy = Enemy2((1024,random.randint(1, 720)), self.players, 'jay')
+            self.enemies.add(self.enemy)
+            self.enemy = Enemy4((1024,random.randint(1, 720)), self.players, 'left')
             self.enemies.add(self.enemy)
 
         #new enemy movement
         if self.enemy:
             for enemy in self.enemies:
-                enemy.left(self.delta)
+                enemy.move(self.delta)
 
         # enemy firing        
         if self.enemy:
