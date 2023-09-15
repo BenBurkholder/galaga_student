@@ -16,6 +16,7 @@ from projectile import Projectile
 from pygame.locals import *
 from enemy2 import Enemy2
 from enemy4 import Enemy4
+# from functions import spawnEnemy
 
 class LevelOne():
     def __init__(self, player, screen, font, fontcolor, fps):
@@ -40,10 +41,14 @@ class LevelOne():
         self.clock = clock = pg.time.Clock()
         self.players = pygame.sprite.Group()
         self.players.add(self.player)
+        self.enemyNumber = 0
 
+    stageOne = [[100,Enemy2,1024,100,'jay'],[200,Enemy2,1024,100,'jay'],[300,Enemy2,1024,100,'jay'],[500,Enemy4,1024,500,'left'],[600,Enemy4,1024,500,'left'],[700,Enemy4,1024,500,'left'],
+                [800,Enemy4,1024,500,'left'],[1000,Enemy2,1024,200,'angle'],[1100,Enemy2,1024,200,'angle'],[1200,Enemy2,1024,200,'angle'], [1999900,Enemy2,1024,400,'angle']]
     def main_game(self):
         #  increment timer
         self.timer += 1
+
 
         # First thing we need to clear the events.
         if self.dead:
@@ -98,13 +103,21 @@ class LevelOne():
             self.selectedWeapon = 2
         if keys[K_3]:
             self.selectedWeapon = 3
-  
+
         #add new mobile enemies
-        if self.timer % 100 == 0:
-            self.enemy = Enemy2((1024,random.randint(1, 720)), self.players, 'jay')
+        
+        def spawnEnemy(enemyType, Xpos, Ypos, movement):
+            self.enemy = enemyType((Xpos, Ypos), self.players, movement)
             self.enemies.add(self.enemy)
-            self.enemy = Enemy4((1024,random.randint(1, 720)), self.players, 'left')
-            self.enemies.add(self.enemy)
+        # if self.timer % 100 == 0:
+        #     self.enemy = Enemy2((1024,random.randint(1, 720)), self.players, 'jay')
+        #     self.enemies.add(self.enemy)
+        #     self.enemy = Enemy4((1024,random.randint(1, 720)), self.players, 'left')
+        #     self.enemies.add(self.enemy)
+        
+        if self.timer == self.stageOne[self.enemyNumber][0]:
+            spawnEnemy(self.stageOne[self.enemyNumber][1], self.stageOne[self.enemyNumber][2], self.stageOne[self.enemyNumber][3], self.stageOne[self.enemyNumber][4])
+            self.enemyNumber += 1
 
         #new enemy movement
         if self.enemy:
@@ -147,7 +160,7 @@ class LevelOne():
         #     print("Congratulations! You win.")
         #     running = False
 
-        if self.timer > 1000 :
+        if self.timer > 1500 :
             print("times up")
             return "next"
         
