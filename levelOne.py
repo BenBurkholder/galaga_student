@@ -16,6 +16,7 @@ from projectile import Projectile
 from pygame.locals import *
 from enemy2 import Enemy2
 from enemy4 import Enemy4
+from enemy3 import Enemy3
 # from functions import spawnEnemy
 
 class LevelOne():
@@ -43,8 +44,8 @@ class LevelOne():
         self.players.add(self.player)
         self.enemyNumber = 0
 
-    stageOne = [[100,Enemy2,1024,100,'jay'],[200,Enemy2,1024,100,'jay'],[300,Enemy2,1024,100,'jay'],[500,Enemy4,1024,500,'left'],[600,Enemy4,1024,500,'left'],[700,Enemy4,1024,500,'left'],
-                [800,Enemy4,1024,500,'left'],[1000,Enemy2,1024,200,'angle'],[1100,Enemy2,1024,200,'angle'],[1200,Enemy2,1024,200,'angle'], [1999900,Enemy2,1024,400,'angle']]
+    stageOne = [[100,Enemy2,1024,100,'jay'],[200,Enemy2,1024,100,'jay'],[300,Enemy2,1024,100,'jay'],[500,Enemy4,1024,500,'left'],[501,Enemy4,1024,400,'left'],[502,Enemy4,1024,300,'left'],
+                [503,Enemy4,1024,200,'left'],[1000,Enemy3,1024,200,'angle'],[1100,Enemy3,1024,200,'angle'],[1200,Enemy3,1024,200,'angle'], [1999900,Enemy3,1024,400,'angle']]
     def main_game(self):
         #  increment timer
         self.timer += 1

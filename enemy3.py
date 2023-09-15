@@ -9,7 +9,7 @@ import pygame as pg
 # rectangle x, y or centerx and centery to move the object.
 
 class Enemy3(pg.sprite.Sprite):
-    def __init__(self, position, enemies):
+    def __init__(self, position, enemies, moveSet):
         super(Enemy3, self).__init__()
         self.size=(40,75)
         self.surf = pg.Surface(self.size)
@@ -19,7 +19,9 @@ class Enemy3(pg.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(position))
         self.enemies = enemies
         self.health=2
+        self.moveSet=moveSet
         self.explosionSound = pg.mixer.Sound(os.path.join('assets', 'explosion.wav'))
+        self.timer=0
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
@@ -34,6 +36,24 @@ class Enemy3(pg.sprite.Sprite):
             self.explosionSound.play()
             self.kill()
 
+    def move(self, delta):
+        if self.moveSet=='left':
+            self.left(delta)
+        if self.moveSet=='angle':
+            self.down(delta)
+            self.left(delta)
+        if self.moveSet=='jay':
+            if self.timer < 100:
+                self.left(delta)
+                self.left(delta)
+            elif self.timer > 200:
+                self.down(delta)
+                self.down(delta)
+            else:
+                self.down(delta)
+                self.left(delta)
+            self.timer +=1
+
     def up(self, delta):
         self.rect.move_ip(0, -1)
 
@@ -41,7 +61,7 @@ class Enemy3(pg.sprite.Sprite):
         self.rect.move_ip(0, 1)
 
     def left(self,delta):
-        self.rect.move_ip(-2,0)
+        self.rect.move_ip(-1,0)
 
     def right(self,delta):
         self.rect.move_ip(1,0)
